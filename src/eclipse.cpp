@@ -65,13 +65,19 @@ int main(int argc, char** argv)
 
 	recursive_directory_iterator end_itr;
 
+	/*----- INITIALIZE NEURAL NETWORK -----*/
+	string cfg_file = "./custom_cfg/yolo-obj.cfg";
+	string weight_file = "./backup/tarp_final.weights";
+	int gpu_id = 0;
+
+	Detector detector(cfg_file, weight_file, 0);
+
 	/*----- PROCESS ALL IMAGES IN FOLDER -----*/
 	for (recursive_directory_iterator itr(input_image_dir); itr != end_itr; ++itr)
 	{
     	//Path strings
 		string currentFilePath = itr->path().string();
 		string currentFileName = itr->path().filename().string();
-
 
 		//If directory, make folder and continue
 		if (is_directory(itr->path()))
@@ -84,7 +90,6 @@ int main(int argc, char** argv)
 			create_directory(outputDirectoryPath);
 
 			continue;
-
 		}
 
 		/*----- READ & CHECK -----*/
@@ -121,6 +126,9 @@ int main(int argc, char** argv)
 			continue; //Error code that no data was gathered
 		}
 
+		vector<bbox_t> box = detector.detect(cameraImgBGR);
+
+
 
 	}
 
@@ -132,7 +140,6 @@ int main(int argc, char** argv)
 
 	/*----- EXIT PROGRAM -----*/
 
-	cuda::resetDevice();
 
 	return 0;
 }

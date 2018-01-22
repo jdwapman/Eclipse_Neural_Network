@@ -2,7 +2,7 @@
 GPU=1
 CUDNN=0
 OPENCV=1
-DEBUG=0
+DEBUG=1
 OPENMP=1
 LIBSO=1
 
@@ -40,7 +40,7 @@ COMMON=
 CFLAGS=-Wall -Wfatal-errors
 
 ifeq ($(DEBUG), 1) 
-OPTS=-O0 -g
+OPTS=-O4 -g -Wall #Note: original code uses -O0. This does not work.
 endif
 
 CFLAGS+=$(OPTS)
@@ -51,8 +51,8 @@ COMMON+= -DOPENCV
 CFLAGS+= -DOPENCV
 LDFLAGS+= `pkg-config --libs opencv `
 
-COMMON += -I/usr/local/include/opencv 
-LDFLAGS+= -lopencv_core #-I may need to be in COMMON
+#COMMON += -I/usr/local/include/opencv 
+#LDFLAGS+= -lopencv_core #-I may need to be in COMMON
 COMMON+= `pkg-config --cflags opencv` 
 endif
 
@@ -106,7 +106,7 @@ endif
 
 #Compile Eclipse
 $(ECLIPSENAME): $(LIBNAMESO) nn_src/yolo_v2_class.hpp src/eclipse.cpp
-	$(CPP) -std=c++11 -Wall $(COMMON) $(CFLAGS) -o $@ src/eclipse.cpp $(LDFLAGS) -L ./ -l:$(LIBNAMESO)
+	$(CPP) -std=c++11 $(COMMON) $(CFLAGS) -o $@ src/eclipse.cpp $(LDFLAGS) -L ./ -l:$(LIBNAMESO)
 
 #Used to compile default darknet program
 $(EXEC): $(OBJS)
