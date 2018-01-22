@@ -7,3 +7,6 @@ backup/*
 build/*
 yolo.weights
 uselib
+Input_Images
+Output_Images
+Training_Images
