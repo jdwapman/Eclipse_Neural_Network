@@ -11,3 +11,4 @@ Input_Images
 Output_Images
 Training_Images
 darknet.so
+./darknet.so
