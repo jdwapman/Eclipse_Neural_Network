@@ -12,3 +12,5 @@ Output_Images
 Training_Images
 darknet.so
 ./darknet.so
+backup_old/*
+./darknet19_488.conv.23
