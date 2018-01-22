@@ -5,6 +5,7 @@ OPENCV=1
 DEBUG=1
 OPENMP=1
 LIBSO=1
+TRACK_OPTFLOW = 0
 
 #? Just leave it
 ARCH= -gencode arch=compute_30,code=sm_30 \

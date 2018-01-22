@@ -70,7 +70,7 @@ int main(int argc, char** argv)
 	string weight_file = "./backup/tarp_final.weights";
 	int gpu_id = 0;
 
-	Detector detector(cfg_file, weight_file, 0);
+	Detector detector(cfg_file, weight_file, gpu_id);
 
 	/*----- PROCESS ALL IMAGES IN FOLDER -----*/
 	for (recursive_directory_iterator itr(input_image_dir); itr != end_itr; ++itr)
@@ -127,20 +127,28 @@ int main(int argc, char** argv)
 		}
 
 		printTime("Start Detection", stepTime);
-		vector<bbox_t> box = detector.detect(cameraImgBGR);
+		vector<bbox_t> bboxes = detector.detect(cameraImgBGR); //Run neural network on image
 		printTime("Stop Detection", stepTime);
+
+		Scalar color = Scalar(0,0,255);
+
+		for(unsigned int i = 0; i < bboxes.size(); i++)
+		{
+			rectangle(cameraImgBGR, Rect(bboxes[i].x, bboxes[i].y, bboxes[i].w, bboxes[i].h), color, 20);
+
+		}
+
+		//Save image file
+		saveImage(cameraImgBGR, currentFilePath);
+
+		cout << endl << endl;
 
 
 	}
 
-//	string  names_file = "data/coco.names";
-//	string  cfg_file = "cfg/yolo.cfg";
-//	string  weights_file = "yolo.weights";
-//
-//	Detector detector(cfg_file, weights_file);
-
 	/*----- EXIT PROGRAM -----*/
 
+	cout << "Finished" << endl;
 
 	return 0;
 }
