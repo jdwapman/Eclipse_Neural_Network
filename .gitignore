@@ -1,0 +1,9 @@
+obj/*.o
+eclipse
+darknet
+yolo.weights
+backup/*
+3rdparty/*
+build/*
+yolo.weights
+uselib
