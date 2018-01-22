@@ -10,6 +10,9 @@
 //Filesystem library
 #include "boost/filesystem.hpp"
 
+//OpenCV Library
+#include <opencv2/opencv.hpp> //OpenCV library
+
 using namespace std;
 using namespace cv;
 using namespace boost::filesystem;

@@ -50,7 +50,9 @@ ifeq ($(OPENCV), 1)
 COMMON+= -DOPENCV
 CFLAGS+= -DOPENCV
 LDFLAGS+= `pkg-config --libs opencv `
-LDFLAGS+= -I/usr/local/include/opencv -lopencv_core #-I may need to be in COMMON
+
+COMMON += -I/usr/local/include/opencv 
+LDFLAGS+= -lopencv_core #-I may need to be in COMMON
 COMMON+= `pkg-config --cflags opencv` 
 endif
 
