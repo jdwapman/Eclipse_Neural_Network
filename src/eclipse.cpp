@@ -126,8 +126,9 @@ int main(int argc, char** argv)
 			continue; //Error code that no data was gathered
 		}
 
+		printTime("Start Detection", stepTime);
 		vector<bbox_t> box = detector.detect(cameraImgBGR);
-
+		printTime("Stop Detection", stepTime);
 
 
 	}
