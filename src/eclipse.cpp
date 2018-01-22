@@ -61,7 +61,7 @@ int main(int argc, char** argv)
 	path input_image_dir = parent_dir.append("/Input_Images");
 	path output_image_dir = parent_dir.append("/Output_Images");
 
-	input_image_dir = input_image_dir.append("/Selected_Images");
+//	input_image_dir = input_image_dir.append("/Selected_Images"); //Use this to only test a subset of images
 
 	recursive_directory_iterator end_itr;
 
@@ -138,8 +138,12 @@ int main(int argc, char** argv)
 
 		}
 
+		printTime("Draw Rectangles", stepTime);
+
 		//Save image file
 		saveImage(cameraImgBGR, currentFilePath);
+
+		printTime("Save Image", stepTime);
 
 		cout << endl << endl;
 
