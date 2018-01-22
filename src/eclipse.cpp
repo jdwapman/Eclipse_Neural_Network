@@ -17,8 +17,41 @@ using namespace std;
 using namespace cv;
 using namespace boost::filesystem;
 
+//Forward-declare functions
+void printTime(String operation, TickMeter& tm);
+void saveImage(const Mat& img, const string path);
+
 int main(int argc, char** argv)
 {
+
+	/*----- COLOR VARIABLES -----*/
+
+	// Ranges of colors to look for in HSV color space
+	//TODO Get more precise values
+	int blue_ideal[3] = {0,0,0};
+	int blue_low[3] = {200,45,40};
+	int blue_high[3] = {240,100,100};
+
+	int pink_ideal[3] = {0,0,0};
+	int pink_low[3] = {290,20,50};
+	int pink_high[3] = {350,60,100};
+
+	int yellow_ideal[3] = {0,0,0};
+	int yellow_low[3] = {45,20,40};
+	int yellow_high[3] = {60,100,100};
+
+	/*----- INITIALIZATION -----*/
+
+	//Check if CUDA-enabled GPU can be accessed
+	if(cuda::getCudaEnabledDeviceCount() < 1)
+	{
+		cerr << "No CUDA-enabled GPU detected" << endl;
+		return 1;
+	}
+
+	//Initialize GPU
+	cuda::setDevice(0);
+	cuda::resetDevice();
 
 	//Get parent directory
 	path parent_dir = argv[0];
@@ -76,6 +109,18 @@ int main(int argc, char** argv)
 		int cols = cameraImgBGR.cols;
 		int imgType = cameraImgBGR.type();
 
+		//Reduced image dimensions
+		double scale = (1.0/4.0);
+		int rrows = rows * scale;
+		int rcols = cols * scale;
+
+		//Check image exists
+		if(cameraImgBGR.empty() == true)
+		{
+			cout << "No image detected" << endl;
+			continue; //Error code that no data was gathered
+		}
+
 
 	}
 
@@ -85,5 +130,33 @@ int main(int argc, char** argv)
 //
 //	Detector detector(cfg_file, weights_file);
 
+	/*----- EXIT PROGRAM -----*/
+
+	cuda::resetDevice();
+
 	return 0;
+}
+
+/*---------- CUSTOM FUNCTIONS ----------*/
+
+
+void saveImage(const Mat& img, const string path)
+{
+	size_t index = 0;
+	string writePath = path;
+	index = writePath.find("Input", index);
+	writePath.replace(index,5,"Output"); //Replace "Input" with "Output
+	cout << writePath << endl;
+	imwrite(writePath,img);
+
+}
+
+//Output elapsed time since last printTime() operation. Useful for determining runtime of given step.
+void printTime(String operation, TickMeter& tm)
+{
+	tm.stop();
+	cout << operation << ": "  << tm.getTimeMilli() << " ms" << endl;
+	tm.reset();
+	tm.start();
+	return;
 }
