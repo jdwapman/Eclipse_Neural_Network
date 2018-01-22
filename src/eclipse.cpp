@@ -3,6 +3,7 @@
 #include "../nn_src/yolo_v2_class.hpp"
 
 //System libraries
+#include <chrono>
 #include <iostream>
 #include <string>
 
@@ -19,13 +20,12 @@ int main(int argc, char** argv)
 	//Get parent directory
 	path parent_dir = argv[0];
 	parent_dir = parent_dir.remove_filename();
-	cout << parent_dir << endl;
 
 	//Directory for input images
 	path input_image_dir = parent_dir.append("/Input_Images");
 	path output_image_dir = parent_dir.append("/Output_Images");
 
-	cout << input_image_dir << endl;
+	input_image_dir = input_image_dir.append("/Selected_Images");
 
 	recursive_directory_iterator end_itr;
 
@@ -55,15 +55,25 @@ int main(int argc, char** argv)
 
 		//Import image. imread imports in BGR format.
 
-		if(currentFileName.find(".jpg") != string::npos)
-		{
-			cout << "Reading " << currentFilePath << endl;
-			Mat cameraImgBGR = imread(currentFilePath, CV_LOAD_IMAGE_COLOR);
-		}
-		else
-		{
+		if(currentFileName.find(".jpg") == string::npos)
 			continue;
-		}
+
+
+		cout << "Reading " << currentFilePath << endl;
+		Mat cameraImgBGR = imread(currentFilePath, CV_LOAD_IMAGE_COLOR);
+
+		//Start timer
+		TickMeter stepTime;
+		TickMeter totalTime;
+		stepTime.start();
+		totalTime.start();
+
+		//Get image dimensions for preallocation. Can eventually replace with constants
+		int rows = cameraImgBGR.rows;
+		int cols = cameraImgBGR.cols;
+		int imgType = cameraImgBGR.type();
+
+
 	}
 
 //	string  names_file = "data/coco.names";
