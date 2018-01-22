@@ -10,16 +10,20 @@
 #include "boost/filesystem.hpp"
 
 using namespace std;
+using namespace boost::filesystem;
 
-int main()
+int main(int argc, char** argv)
 {
 
-	string  names_file = "data/coco.names";
-	string  cfg_file = "cfg/yolo.cfg";
-	string  weights_file = "yolo.weights";
-	
-	Detector detector(cfg_file, weights_file);
+	path parent_dir = argv[0];
+	parent_dir = parent_dir.remove_filename();
+	cout << parent_dir << endl;
 
-	cout << "Hi World!" << endl;
+//	string  names_file = "data/coco.names";
+//	string  cfg_file = "cfg/yolo.cfg";
+//	string  weights_file = "yolo.weights";
+//
+//	Detector detector(cfg_file, weights_file);
+
 	return 0;
 }
