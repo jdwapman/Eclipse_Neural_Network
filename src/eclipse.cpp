@@ -141,6 +141,9 @@ int main(int argc, char** argv)
 		printTime("Draw Rectangles", stepTime);
 
 		//Save image file
+
+		resize(cameraImgBGR,cameraImgBGR,Size(),0.25,0.25,INTER_LINEAR);
+
 		saveImage(cameraImgBGR, currentFilePath);
 
 		printTime("Save Image", stepTime);
