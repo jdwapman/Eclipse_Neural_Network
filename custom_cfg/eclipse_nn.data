@@ -2,4 +2,4 @@ classes= 1
 train  = ./train.txt  
 valid  = ./test.txt  
 names = ./custom_cfg/eclipse_nn.names  
-backup = ./backup/
+backup = ./backup
