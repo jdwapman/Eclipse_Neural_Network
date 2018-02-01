@@ -28,17 +28,19 @@ int main(int argc, char** argv)
 
 	// Ranges of colors to look for in HSV color space
 	//TODO Get more precise values
-	int blue_ideal[3] = {0,0,0};
-	int blue_low[3] = {200,45,40};
-	int blue_high[3] = {240,100,100};
+	struct tarpData{
+		int blue_ideal[3] = {0,0,0};
+		int blue_low[3] = {200,45,40};
+		int blue_high[3] = {240,100,100};
 
-	int pink_ideal[3] = {0,0,0};
-	int pink_low[3] = {290,20,50};
-	int pink_high[3] = {350,60,100};
+		int pink_ideal[3] = {0,0,0};
+		int pink_low[3] = {290,20,50};
+		int pink_high[3] = {350,60,100};
 
-	int yellow_ideal[3] = {0,0,0};
-	int yellow_low[3] = {45,20,40};
-	int yellow_high[3] = {60,100,100};
+		int yellow_ideal[3] = {0,0,0};
+		int yellow_low[3] = {45,20,40};
+		int yellow_high[3] = {60,100,100};
+	} color_vals;
 
 	/*----- INITIALIZATION -----*/
 
@@ -61,7 +63,7 @@ int main(int argc, char** argv)
 	path input_image_dir = parent_dir.append("/Input_Images");
 	path output_image_dir = parent_dir.append("/Output_Images");
 
-//	input_image_dir = input_image_dir.append("/Selected_Images"); //Use this to only test a subset of images
+	input_image_dir = input_image_dir.append("/Selected_Images"); //Use this to only test a subset of images
 
 	recursive_directory_iterator end_itr;
 
@@ -89,6 +91,8 @@ int main(int argc, char** argv)
 
 			create_directory(outputDirectoryPath);
 
+			//TODO: get lighting config file from directory
+
 			continue;
 		}
 
@@ -96,6 +100,7 @@ int main(int argc, char** argv)
 
 		//Import image. imread imports in BGR format.
 
+		//Read only if file is a jpg
 		if(currentFileName.find(".jpg") == string::npos)
 			continue;
 
