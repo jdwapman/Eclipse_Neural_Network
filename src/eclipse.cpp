@@ -68,8 +68,8 @@ int main(int argc, char** argv)
 	recursive_directory_iterator end_itr;
 
 	/*----- INITIALIZE NEURAL NETWORK -----*/
-	string cfg_file = "./custom_cfg/eclipse_nn.cfg";
-	string weight_file = "./backup/eclipse_nn_600.weights"; //TODO: update weights file location
+	string cfg_file = "./cfg/yolo9000.cfg";
+	string weight_file = "./yolo9000.weights"; //TODO: update weights file location
 	int gpu_id = 0;
 
 	Detector detector(cfg_file, weight_file, gpu_id);
