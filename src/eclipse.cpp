@@ -117,12 +117,11 @@ int main(int argc, char** argv)
 		//Get image dimensions for preallocation. Can eventually replace with constants
 		int rows = cameraImgBGR.rows;
 		int cols = cameraImgBGR.cols;
-		int imgType = cameraImgBGR.type();
+
 
 		//Reduced image dimensions
 		double scale = (1.0/4.0);
-		int rrows = rows * scale;
-		int rcols = cols * scale;
+
 
 		//Check image exists
 		if(cameraImgBGR.empty() == true)
@@ -139,7 +138,7 @@ int main(int argc, char** argv)
 
 		for(unsigned int i = 0; i < bboxes.size(); i++)
 		{
-			rectangle(cameraImgBGR, Rect(bboxes[i].x, bboxes[i].y, bboxes[i].w, bboxes[i].h), color, 20);
+			rectangle(cameraImgBGR, Rect(bboxes[i].x, bboxes[i].y, bboxes[i].w, bboxes[i].h), color, 5);
 
 		}
 
