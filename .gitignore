@@ -15,3 +15,4 @@ darknet.so
 backup_old/*
 darknet19_448.conv.23
 yolo9000.weights
+backup/yolo-obj.backup
